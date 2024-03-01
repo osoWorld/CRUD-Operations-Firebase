@@ -120,6 +120,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
         }
     }
 
+
+
     private void updateProfile(String name, String email, String password){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference usersRef = database.getReference("Users").child(userId);

@@ -51,6 +51,7 @@
             android:drawablePadding="15dp"
             android:drawableTint="@color/hintColor"
             android:hint="Full Name"
+            android:inputType="textPersonName"
             android:padding="15dp"
             android:textColor="@color/white"
             android:textColorHint="@color/hintColor" />
@@ -65,6 +66,7 @@
             android:drawablePadding="15dp"
             android:drawableTint="@color/hintColor"
             android:hint="Enter Your Email"
+            android:inputType="textEmailAddress"
             android:padding="15dp"
             android:textColor="@color/white"
             android:textColorHint="@color/hintColor" />
@@ -83,6 +85,31 @@
             android:padding="15dp"
             android:textColor="@color/white"
             android:textColorHint="@color/hintColor" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:inputType="none"
+                android:background="@color/editText_bg"
+                android:textColor="@color/white"
+                android:text="Choose Your Role"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 

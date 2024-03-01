@@ -6,23 +6,22 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ImageSpan;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.assignment2.ModelClasses.RegisterUser;
+import com.example.assignment2.adminPanel.activities.VerifyAdminActivity;
+import com.example.assignment2.customerPanel.CustomerDashboardActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -41,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar;
     private String username, email, password;
     private String userid;
+    private AutoCompleteTextView autoCompleteTextView;
+    private String selectedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,28 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(ContextCompat.getColor(this, R.color.black));
+            window.setStatusBarColor(ContextCompat.getColor(this, R.color.black_bg));
         }
+
+        String[] items = {"Admin", "Customer"};
+
+        // Get AutoCompleteTextView reference
+        autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
+
+        // Create ArrayAdapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, items);
+
+        // Set the adapter to AutoCompleteTextView
+        autoCompleteTextView.setAdapter(adapter);
+
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedItem = (String) parent.getItemAtPosition(position);
+
+                Toast.makeText(MainActivity.this, "Selected Item: " + selectedItem, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Ids();
         Clicklistners();
@@ -94,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 } else if (!email.contains("@gmail.com")) {
                     Toast.makeText(MainActivity.this, "Enter valid email", Toast.LENGTH_SHORT).show();
                 } else {
-                    SignupFirebase(email, password);
+                    SignupFirebase(email, password,selectedItem);
                 }
             }
         });
@@ -105,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
     }
 
-    private void SignupFirebase(String email, String password) {
+    private void SignupFirebase(String email, String password,String selectedItem) {
         progressBar.setVisibility(View.VISIBLE);
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -114,9 +135,14 @@ public class MainActivity extends AppCompatActivity {
 
                     FirebaseUser user = auth.getCurrentUser();
                     userid = user.getUid();
-                    Intent obj = new Intent(MainActivity.this, DashboardActivity.class);
-                    startActivity(obj);
-                    AddUSerDataToRealtime(username, email, password, userid);
+                    if (selectedItem.equals("Admin")){
+                        Intent admin = new Intent(MainActivity.this, VerifyAdminActivity.class);
+                        startActivity(admin);
+                    }else {
+                        Intent obj = new Intent(MainActivity.this, CustomerDashboardActivity.class);
+                        startActivity(obj);
+                    }
+                    AddUSerDataToRealtime(username, email, password, selectedItem, userid);
 
                     Toast.makeText(MainActivity.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
                 }
@@ -130,13 +156,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void AddUSerDataToRealtime(String name, String email, String pass, String userid) {
+    private void AddUSerDataToRealtime(String name, String email, String pass, String selectedItem, String userid) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Users").child(userid);
+        DatabaseReference myRef = database.getReference("Profiles").child(userid);
         RegisterUser obj = new RegisterUser(
                 name,
                 email,
                 pass,
+                selectedItem,
                 userid
         );
         myRef.setValue(obj).addOnCompleteListener(new OnCompleteListener<Void>() {

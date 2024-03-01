@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Saad Bari Assignment 2"
+rootProject.name = "Inventory Management System"
 include ':app'

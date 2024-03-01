@@ -6,6 +6,7 @@ public class PersonItemModel {
     private String userPassword;
     private String userId;
 
+
     public PersonItemModel() {
         //Default constructor required for Firebase
     }

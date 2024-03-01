@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_bg"
+    android:padding="20dp"
+    tools:context=".adminPanel.activities.VerifyAdminActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/back_button_bg"
+        android:padding="5dp"
+        android:src="@drawable/baseline_chevron_left_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_thin"
+        android:text="Verify You are \n an Admin"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="30dp">
+
+        <EditText
+            android:id="@+id/verifyEd"
+            android:layout_width="match_parent"
+            android:layout_height="57dp"
+            android:background="@drawable/edittext_bg"
+            android:drawableStart="@drawable/user_my"
+            android:drawablePadding="15dp"
+            android:drawableTint="@color/hintColor"
+            android:hint="Your Admin Code"
+            android:inputType="number"
+            android:padding="15dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/hintColor" />
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/verifyButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_bg"
+        android:fontFamily="@font/poppins_thin"
+        android:text="Verify"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

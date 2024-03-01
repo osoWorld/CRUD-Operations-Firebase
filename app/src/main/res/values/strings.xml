@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Saad Bari Assignment 2</string>
+    <string name="app_name">Inventory Management System</string>
+
+    <string-array name="role">
+        <item>Admin</item>
+        <item>Customer</item>
+    </string-array>
+
 </resources>

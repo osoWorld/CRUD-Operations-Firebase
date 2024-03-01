@@ -46,6 +46,7 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.PersonsV
         PersonItemModel userDetail = userDetailList.get(position);
         holder.personName.setText(userDetail.getUserName());
         holder.personEmail.setText(userDetail.getUserEmail());
+        holder.deleteButton.setVisibility(View.GONE);
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
