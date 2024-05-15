@@ -51,6 +51,7 @@ public class UserListActivity extends AppCompatActivity {
 
         userDetailList = new ArrayList<>();
         filteredUserList = new ArrayList<>();
+
         adapter = new PersonsAdapter(filteredUserList,this);
         usersRecyclerView.setAdapter(adapter);
 
